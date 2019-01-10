@@ -12,12 +12,13 @@ public class Coche {
     private boolean asientosCuero;
     private boolean climatizador;
 
-    public Coche() {
+    public Coche(String color) {
         ruedas = 4;
         largo = 2000;
         ancho = 300;
         motor = 1600;
         pesoPlataforma = 500;
+        this.color = color;
     }
 
     public String damePesoTotalCoche() {
