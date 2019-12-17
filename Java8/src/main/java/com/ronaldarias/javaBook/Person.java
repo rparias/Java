@@ -32,4 +32,19 @@ public class Person {
     public static int numberOfPersons() {
         return personCounter;
     }
+
+    // Uso de Enums
+    public void enumExample() {
+        for (LoggingLevel state : LoggingLevel.values()) {
+            if (state == LoggingLevel.PENDING) {
+                /* call a method */
+            }
+            if (state == LoggingLevel.PROCESSING) {
+                /* call a method */
+            }
+            if (state == LoggingLevel.PROCESSED) {
+                /* call a method */
+            }
+        }
+    }
 }
