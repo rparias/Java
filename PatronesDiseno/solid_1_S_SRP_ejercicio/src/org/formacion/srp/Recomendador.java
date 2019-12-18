@@ -11,17 +11,14 @@ public class Recomendador {
 		List<Pelicula> recomendadas = new ArrayList<>();
 		
 		for (Pelicula favorita: cliente.getFavoritas()) {
+			//agrega todas las peliculas del mismo director
 			recomendadas.addAll(BBDD.PELIS_POR_DIRECTOR.get(favorita.getDirector()));
 		}
-		//recomendadas.removeAll(cliente.getFavoritas());
+		//elimina las que ya ha visto el cliente que estan como favoritas
+		recomendadas.removeAll(cliente.getFavoritas());
 		
 		return recomendadas;
 	}
-	
-	public String recomendacionesCSV (Cliente cliente) {
-		
-		return recomendaciones(cliente).stream()
-		      .map(p -> (p.getTitulo() + "," + p.getGenero() + "," + p.getDirector()))
-		      .collect(Collectors.joining("\n"));
-	}
+
+	/*El recomendador no tiene la responsabilidad de generar un CSV, para ello se crea una nueva clase*/
 }
