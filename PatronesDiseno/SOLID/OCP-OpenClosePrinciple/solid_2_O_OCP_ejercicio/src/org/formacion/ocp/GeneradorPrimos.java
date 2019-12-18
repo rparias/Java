@@ -1,10 +1,13 @@
 package org.formacion.ocp;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class GeneradorPrimos {
+public abstract class GeneradorPrimos {
 
+	abstract Comparator<Integer> getOrdenacion();
 	
 	public List<Integer> primos (int limit) {
 		
@@ -14,6 +17,9 @@ public class GeneradorPrimos {
 				primos.add(i);
 			}
 		}
+
+		Collections.sort(primos, getOrdenacion());
+
 		return primos;
 
 	}
