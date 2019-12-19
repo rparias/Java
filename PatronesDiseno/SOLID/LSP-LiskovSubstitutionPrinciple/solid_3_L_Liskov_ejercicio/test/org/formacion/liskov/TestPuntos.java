@@ -8,10 +8,13 @@ import org.junit.Test;
 
 public class TestPuntos {
 
-	private final Punto2D referencia = new Punto2D(3,5);
+	//private final Punto2D referencia = new Punto2D(3,5);
+
+	//al sustituir Punto2D por Punto3D da error y se viola el principio de liskov
+	private final Punto2D referencia = new Punto3D(3,5,1);
 	private final List<Punto2D> puntos_prueba = Arrays.asList(
-			                                         new Punto2D(2,3), 
-			                                         new Punto2D(3,5), 
+			                                         new Punto2D(2,3),
+			                                         new Punto2D(3,5),
 			                                         new Punto2D(4,3)
 			                                         );
 	
