@@ -7,7 +7,9 @@ import com.ronaldarias.util.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,37 +18,30 @@ public class HotelTest {
     @Test
     public void shouldBeCheapestHotel() {
 
-        List<Rate> ratesLakewood = new ArrayList<>();
-        Rate weekdayRegularL = new Rate(DayType.WEEKDAY ,Customer.REGULAR, 110.0);
-        Rate weekdayRewardsL = new Rate(DayType.WEEKDAY ,Customer.REWARDS, 80.0);
-        Rate weekendRegularL = new Rate(DayType.WEEKEND ,Customer.REGULAR, 90.0);
-        Rate weekendRewardsL = new Rate(DayType.WEEKEND ,Customer.REWARDS, 80.0);
-        ratesLakewood.add(weekdayRegularL);
-        ratesLakewood.add(weekdayRewardsL);
-        ratesLakewood.add(weekendRegularL);
-        ratesLakewood.add(weekendRewardsL);
+        RuleRate ruleRegularWeekday = new RuleRateImpl(DayType.WEEKDAY ,Customer.REGULAR);
+        RuleRate ruleRegularWeekend = new RuleRateImpl(DayType.WEEKEND ,Customer.REGULAR);
+        RuleRate ruleRewardsWeekday = new RuleRateImpl(DayType.WEEKDAY ,Customer.REWARDS);
+        RuleRate ruleRewardsWeekend = new RuleRateImpl(DayType.WEEKEND ,Customer.REWARDS);
+
+        Map<String, Rate> ratesLakewood = new HashMap<>();
+        ratesLakewood.put(ruleRegularWeekday.toString(), new RateImpl(ruleRegularWeekday, 110.0));
+        ratesLakewood.put(ruleRegularWeekend.toString(), new RateImpl(ruleRegularWeekend, 90.0));
+        ratesLakewood.put(ruleRewardsWeekday.toString(), new RateImpl(ruleRewardsWeekday, 80.0));
+        ratesLakewood.put(ruleRewardsWeekend.toString(), new RateImpl(ruleRewardsWeekend, 80.0));
         Hotel lakewood = new HotelImpl("Lakewood", 3, ratesLakewood);
 
-        List<Rate> ratesBridgewood = new ArrayList<>();
-        Rate weekdayRegularB = new Rate(DayType.WEEKDAY ,Customer.REGULAR, 160.0);
-        Rate weekdayRewardsB = new Rate(DayType.WEEKDAY ,Customer.REWARDS, 110.0);
-        Rate weekendRegularB = new Rate(DayType.WEEKEND ,Customer.REGULAR, 60.0);
-        Rate weekendRewardsB = new Rate(DayType.WEEKEND ,Customer.REWARDS, 50.0);
-        ratesBridgewood.add(weekdayRegularB);
-        ratesBridgewood.add(weekdayRewardsB);
-        ratesBridgewood.add(weekendRegularB);
-        ratesBridgewood.add(weekendRewardsB);
+        Map<String, Rate> ratesBridgewood = new HashMap<>();
+        ratesBridgewood.put(ruleRegularWeekday.toString(), new RateImpl(ruleRegularWeekday, 160.0));
+        ratesBridgewood.put(ruleRegularWeekend.toString(), new RateImpl(ruleRegularWeekend, 60.0));
+        ratesBridgewood.put(ruleRewardsWeekday.toString(), new RateImpl(ruleRewardsWeekday, 110.0));
+        ratesBridgewood.put(ruleRewardsWeekend.toString(), new RateImpl(ruleRewardsWeekend, 50.0));
         Hotel bridgewood = new HotelImpl("Bridgewood", 4, ratesBridgewood);
 
-        List<Rate> ratesRidgewood = new ArrayList<>();
-        Rate weekdayRegularR = new Rate(DayType.WEEKDAY ,Customer.REGULAR, 220.0);
-        Rate weekdayRewardsR = new Rate(DayType.WEEKDAY ,Customer.REWARDS, 100.0);
-        Rate weekendRegularR = new Rate(DayType.WEEKEND ,Customer.REGULAR, 150.0);
-        Rate weekendRewardsR = new Rate(DayType.WEEKEND ,Customer.REWARDS, 40.0);
-        ratesRidgewood.add(weekdayRegularR);
-        ratesRidgewood.add(weekdayRewardsR);
-        ratesRidgewood.add(weekendRegularR);
-        ratesRidgewood.add(weekendRewardsR);
+        Map<String, Rate> ratesRidgewood = new HashMap<>();
+        ratesRidgewood.put(ruleRegularWeekday.toString(), new RateImpl(ruleRegularWeekday, 220.0));
+        ratesRidgewood.put(ruleRegularWeekend.toString(), new RateImpl(ruleRegularWeekend, 150.0));
+        ratesRidgewood.put(ruleRewardsWeekday.toString(), new RateImpl(ruleRewardsWeekday, 100.0));
+        ratesRidgewood.put(ruleRewardsWeekend.toString(), new RateImpl(ruleRewardsWeekend, 40.0));
         Hotel ridgewood = new HotelImpl("Ridgewood", 5, ratesRidgewood);
 
         List<Hotel> hotels = new ArrayList<>();
@@ -59,8 +54,8 @@ public class HotelTest {
         Customer customer = Utilities.getCustomerFromString(inputs[0]);
         List<Day> days = Utilities.getDaysFromString(inputs[1]);
 
-        Finder finder = new FinderImpl();
-        Hotel cheapestHotel = finder.searchCheapestHotel(hotels, customer, days);
+        Finder finder = FinderImpl.getFinderFromHotels(hotels);
+        Hotel cheapestHotel = finder.searchCheapestHotel(customer, days);
 
         assertEquals("Ridgewood", cheapestHotel.name());
     }

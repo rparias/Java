@@ -1,9 +1,10 @@
 package com.ronaldarias.entities;
 
-import java.util.List;
+import java.util.Map;
 
 public interface Hotel {
     String name();
     int rating();
-    List<Rate> rates();
+    Map<String, Rate> rates();
+    double priceForDay(RuleRate ruleRate);
 }

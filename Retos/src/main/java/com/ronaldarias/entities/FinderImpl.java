@@ -4,56 +4,54 @@ import com.ronaldarias.enums.Customer;
 import com.ronaldarias.enums.Day;
 import com.ronaldarias.enums.DayType;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class FinderImpl implements Finder {
 
+    private List<Hotel> hotels;
+    private static FinderImpl finder;
+
+    public static FinderImpl getFinderFromHotels(List<Hotel> hotels) {
+        if (finder == null)
+            return new FinderImpl(hotels);
+        else
+            return finder;
+    }
+
+    private FinderImpl(List<Hotel> hotels) {
+        this.hotels = hotels;
+    }
+
     @Override
-    public Hotel searchCheapestHotel(List<Hotel> hotels, Customer customer, List<Day> days) {
+    public Hotel searchCheapestHotel(Customer customer, List<Day> days) {
 
-        List<DayType> dayTypes = getDayTypes(days);
         double amountCheapestHotel = 0.0;
-
+        double totalHotel;
         Hotel cheapestHotel = null;
 
         for (Hotel hotel: hotels) {
-
-            Double totalHotel = 0.0;
-
-            for (Rate rate: hotel.rates()) {
-                for (DayType dayType: dayTypes) {
-                    if (rate.dayType == dayType && rate.customer == customer)
-                        totalHotel += rate.price;
-                }
+            totalHotel = 0.0;
+            for (Day day: days) {
+                totalHotel += getDailyAmmount(customer, hotel, day);
             }
 
-            if (amountCheapestHotel == 0.0) {
+            if (amountCheapestHotel == 0 || totalHotel < amountCheapestHotel) {
                 amountCheapestHotel = totalHotel;
                 cheapestHotel = hotel;
-            }
-            else if (totalHotel < amountCheapestHotel) {
-                amountCheapestHotel = totalHotel;
+            } else if (amountCheapestHotel == totalHotel && cheapestHotel.rating() < hotel.rating()) {
                 cheapestHotel = hotel;
-            } else if (totalHotel == amountCheapestHotel) {
-                if (cheapestHotel.rating() < hotel.rating())
-                    cheapestHotel = hotel;
             }
-
         }
 
         return cheapestHotel;
     }
 
-    private List<DayType> getDayTypes(List<Day> days) {
-        List<DayType> dayTypes = new ArrayList<>();
+    private double getDailyAmmount(Customer customer, Hotel hotel, Day day) {
+        return hotel.priceForDay(new RuleRateImpl(getDayType(day), customer));
+    }
 
-        for (Day day: days) {
-            dayTypes.add(isWeekend(day) ? DayType.WEEKEND : DayType.WEEKDAY);
-        }
-
-        return dayTypes;
+    private DayType getDayType(Day day) {
+        return isWeekend(day) ? DayType.WEEKEND : DayType.WEEKDAY;
     }
 
     private boolean isWeekend(Day day) {

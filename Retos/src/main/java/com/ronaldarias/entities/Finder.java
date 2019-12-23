@@ -6,5 +6,5 @@ import com.ronaldarias.enums.Day;
 import java.util.List;
 
 public interface Finder {
-    Hotel searchCheapestHotel(List<Hotel> hotels, Customer customer, List<Day> days);
+    Hotel searchCheapestHotel(Customer customer, List<Day> days);
 }
