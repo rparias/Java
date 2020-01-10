@@ -45,7 +45,7 @@ public class Persona {
 	public static class BuilderMayor {
 		private Persona persona;
 
-		public BuilderMayor(Persona persona) {
+		private BuilderMayor(Persona persona) {
 			this.persona = persona;
 		}
 
@@ -62,9 +62,9 @@ public class Persona {
 
 	public static class BuilderMenor {
 
-		Persona persona;
+		private Persona persona;
 
-		public BuilderMenor(Persona persona) {
+		private BuilderMenor(Persona persona) {
 			this.persona = persona;
 		}
 
