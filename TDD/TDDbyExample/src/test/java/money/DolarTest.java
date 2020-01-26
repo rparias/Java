@@ -13,10 +13,8 @@ public class DolarTest {
     @Test
     public void testMultiplication() {
         Dollar five = new Dollar(5);
-        Dollar product = five.times(2);
-        assertThat(product.amount, is(10));
-        product = five.times(3);
-        assertThat(product.amount, is(15));
+        assertThat(new Dollar(10), is(five.times(2)));
+        assertThat(new Dollar(15), is(five.times(3)));
     }
 
     @Test
