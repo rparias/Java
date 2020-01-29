@@ -30,5 +30,6 @@ public class DolarTest {
         assertThat(new Dollar(5), is(not(equalTo(new Dollar(6)))));
         assertThat(new Franc(5), is(equalTo(new Franc(5))));
         assertThat(new Franc(5), is(not(equalTo(new Franc(6)))));
+        assertThat(new Franc(5), is(not(equalTo(new Dollar(5)))));
     }
 }
