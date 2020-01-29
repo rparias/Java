@@ -18,8 +18,17 @@ public class DolarTest {
     }
 
     @Test
+    public void testFrancMultiplication() {
+        Franc five = new Franc(5);
+        assertThat(new Franc(10), is(five.times(2)));
+        assertThat(new Franc(15), is(five.times(3)));
+    }
+
+    @Test
     public void testEquality() {
         assertThat(new Dollar(5), is(equalTo(new Dollar(5))));
         assertThat(new Dollar(5), is(not(equalTo(new Dollar(6)))));
+        assertThat(new Franc(5), is(equalTo(new Franc(5))));
+        assertThat(new Franc(5), is(not(equalTo(new Franc(6)))));
     }
 }
