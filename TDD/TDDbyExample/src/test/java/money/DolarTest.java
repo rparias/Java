@@ -19,9 +19,9 @@ public class DolarTest {
 
     @Test
     public void testFrancMultiplication() {
-        Franc five = new Franc(5);
-        assertThat(new Franc(10), is(five.times(2)));
-        assertThat(new Franc(15), is(five.times(3)));
+        Money five = Money.franc(5);
+        assertThat(Money.franc(10), is(five.times(2)));
+        assertThat(Money.franc(15), is(five.times(3)));
     }
 
     @Test
@@ -31,5 +31,11 @@ public class DolarTest {
         assertThat(Money.franc(5), is(equalTo(Money.franc(5))));
         assertThat(Money.franc(5), is(not(equalTo(Money.franc(6)))));
         assertThat(Money.franc(5), is(not(equalTo(Money.dollar(6)))));
+    }
+
+    @Test
+    public void testCurrency() {
+        assertThat(Money.dollar(1).currency(), is("USD"));
+        assertThat(Money.franc(1).currency(), is("CHF"));
     }
 }
