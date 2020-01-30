@@ -14,7 +14,16 @@ public class HamburguesaFactory {
 	private Size size;
 	private Pan pan;
 	private List<Extra> extras = new ArrayList<>();
-	
+
+	public static HamburguesaFactory from(Hamburguesa original) {
+		HamburguesaFactory factory = new HamburguesaFactory();
+		factory.carne = original.getCarne();
+		factory.size = original.getSize();
+		factory.pan = original.getPan();
+		factory.extras.addAll(original.getExtras());
+		return factory;
+	}
+
 	public Hamburguesa crea() {
 		return new Hamburguesa(carne, size, pan, extras.toArray(new Extra[extras.size()]));
 	}

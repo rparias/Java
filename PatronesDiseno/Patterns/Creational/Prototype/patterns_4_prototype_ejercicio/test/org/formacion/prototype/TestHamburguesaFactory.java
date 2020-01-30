@@ -24,15 +24,11 @@ public class TestHamburguesaFactory {
 	}
 
 	@Test
-	public void test_royal_si_cebolla() {
+	public void test_royal_sin_cebolla() {
 		// queremos simplificar pedir esta hamburguesa !!
-		
-		Hamburguesa royaSinCebolla = new HamburguesaFactory()
-				                              .setCarne(Carne.VACUNO)
-				                              .setSize(Size.GRANDE)
-				                              .setPan(Pan.NORMAL)
-				                              .addExtra(Extra.QUESO)
-				                              .crea();
+
+		Hamburguesa royal =  HamburguesaFactory.royal();
+		Hamburguesa royaSinCebolla = HamburguesaFactory.from(royal).removeExtra(Extra.CEBOLLA).crea();
 
 		assertEquals(Carne.VACUNO, royaSinCebolla.getCarne());
 		assertEquals(Size.GRANDE, royaSinCebolla.getSize());
