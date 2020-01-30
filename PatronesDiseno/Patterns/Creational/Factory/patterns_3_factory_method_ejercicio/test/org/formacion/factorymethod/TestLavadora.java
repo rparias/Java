@@ -2,14 +2,19 @@ package org.formacion.factorymethod;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestLavadora {
 
+	LavadoraFactory lavadoraFactory;
+
 	@Test
 	public void test_carga_frontal() {
-		
-		Lavadora lavadora = new LavadoraCargaFrontal();
+
+		lavadoraFactory = new CargaFrontal();
+
+		Lavadora lavadora = lavadoraFactory.createLavadora();
 		lavadora.ponerMandos();
 		lavadora.ponerTambor();
 		
@@ -20,8 +25,10 @@ public class TestLavadora {
 
 	@Test
 	public void test_carga_superior() {
-		
-		Lavadora lavadora = new LavadoraCargaSuperior();
+
+		lavadoraFactory = new CargaSuperior();
+
+		Lavadora lavadora = lavadoraFactory.createLavadora();
 		lavadora.ponerMandos();
 		lavadora.ponerTambor();
 		
