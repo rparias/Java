@@ -11,7 +11,7 @@ public class InternationMoneyTests {
 	@Before
 	public void init() {
 		// cambia este null por una referencia al adapter que has creado
-		servicio = null;
+		servicio = new BancoAdapter(new BancoNostrumIml());
 	}
 	
 	@Test
