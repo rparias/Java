@@ -19,7 +19,7 @@ public class TestBaseDatosConLogger {
 		
 		// construir un LoggerDecorator usando la base de datos sinLogger y el
 		// logger
-		bbdd = null;
+		bbdd = new LoggerDecorator(sinLogger, logger);;
 	}
 	
 	
