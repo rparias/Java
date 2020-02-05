@@ -37,7 +37,9 @@ public class TestFacade {
 	public void test_facade() {
 		// usa aqui tu servicio facade para dar de alta un usuario
 		// con los datos particulares nombreCliente e emailCliente
-		
+		Facade facade = new FacadeImp();
+		facade.registroExpress(nombreCliente, emailCliente);
+
 		// deja esta invocacion para comprobar el comprortamiento de tu facade
 		compruebaInscripion();
 	}
