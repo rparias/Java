@@ -8,7 +8,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
-public class DolarTest {
+public class MoneyTest {
 
     @Test
     public void testMultiplication() {
@@ -29,8 +29,6 @@ public class DolarTest {
         assertThat(Money.dollar(5), is(equalTo(Money.dollar(5))));
         assertThat(Money.dollar(5), is(not(equalTo(Money.dollar(6)))));
         assertThat(Money.franc(5), is(equalTo(Money.franc(5))));
-        assertThat(Money.franc(5), is(not(equalTo(Money.franc(6)))));
-        assertThat(Money.franc(5), is(not(equalTo(Money.dollar(6)))));
     }
 
     @Test
